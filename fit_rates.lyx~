@@ -1,0 +1,424 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{slashed}
+\usepackage{braket}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Cálculos fit rates
+\end_layout
+
+\begin_layout Standard
+tenemos las ratas 
+\begin_inset Formula 
+\[
+r_{ij}=\frac{c_{i,j}}{C_{j}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\ \,\forall\ i\neq j,\ \ C_{j}=\sum_{i}c_{ij}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+r_{jj} & = & 1-\sum_{i}\frac{c_{i,j}}{C_{j}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\\
+ & = & 1-\frac{1}{C_{j}\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\sum_{i}\frac{c_{i,j}}{\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)}\\
+ & = & 1-\frac{1}{\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problemas (que significado real puede tener la conectividad de la red? cuantos
+ amigos de FB tiene una persona en otro condado? como se podría medir independie
+ntenente? porque no atribuir la conectividad a la atraccion de un lugar?
+ Personas con el mismo numero de conecciones ve de diferente manera a sus
+ contactos, es mas apropiado ver c_ij como un promedio de conectividad homogenei
+zando el valor de las conecciones.
+ pero como se que al tomar esta perspectiva coarse grained, no estoy entremezcla
+ndo la atraccion de cada sitio con la conectividad promedio? como evoluciona
+ la conectividad en el tiempo? proceso de creación de conecciones?)
+\end_layout
+
+\begin_layout Standard
+Ahora estimamos usando la ecuación maestra: (asumiendo proceso de markov
+ sin memoria sin embargo la gente puede ser mas propensa a volver de donde
+ salió)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\partial_{c_{kl}}r_{ij}(t) & = & \partial_{c_{kl}}\frac{c_{i,j}}{\sum_{m}c_{im}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\\
+ & = & \frac{\delta_{i,k}\delta_{jl}}{\sum_{m}c_{im}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{c_{i,j}\sum_{m}\delta_{i,k}\delta_{lm}}{\left(\sum_{m}c_{im}\right)^{2}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\\
+ & = & \frac{1}{\left(\sum_{m}c_{km}\right)\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}-\frac{c_{k,j}}{\left(\sum_{m}c_{km}\right)^{2}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\partial_{\tilde{v}_{k}(\tau)}r_{ij}(t) & = & \partial_{\tilde{v}_{k}(\tau)}\frac{c_{i,j}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\\
+ & = & -\frac{c_{i,j}e^{\tilde{v}_{i}(t)-\mu}\delta_{t,\tau}\delta_{i,k}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)^{2}\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}+\frac{c_{i,j}e^{\mu-\tilde{v}_{j}(t)}\delta_{t,\tau}\delta_{j,k}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)^{2}}\\
+ & = & -\frac{c_{k,j}e^{\tilde{v}_{k}(\tau)-\mu}}{C_{k}\left(1+e^{\tilde{v}_{k}(\tau)-\mu}\right)^{2}\left(1+e^{\mu-\tilde{v}_{j}(\tau)}\right)}+\frac{c_{i,k}e^{\mu-\tilde{v}_{k}(\tau)}}{C_{i}\left(1+e^{\tilde{v}_{i}(\tau)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{k}(\tau)}\right)^{2}}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Usando la ecuación maestra tenemos:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\partial P_{i}(t)}{\partial t}=\sum_{j}r_{ij}P_{j}(t)-r_{ji}P_{i}(t)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Y conocemos 
+\begin_inset Formula 
+\[
+N_{i}(t),N(t)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+y 
+\begin_inset Formula 
+\[
+N_{i\rightarrow j}(t).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+notando en particular que 
+\begin_inset Formula 
+\[
+N_{i\rightarrow i}(t)=1-\sum_{j\neq i}N_{i\rightarrow j}(t)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Por ende inferimos que
+\begin_inset Formula 
+\[
+P_{i}(t)=\frac{N_{i}(t)}{N(t)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Y la probabilidad de que haya una transición en un año va a ser
+\begin_inset Formula 
+\[
+r_{ij}=\frac{N_{i\leftarrow j}(t)}{N(t)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+por ende el chi a minimizar es 
+\begin_inset Formula 
+\begin{eqnarray*}
+\chi^{2} & = & \sum_{i,j,t}\left(r_{ij}-\frac{N_{i\leftarrow j}(t)}{N(t)}\right)^{2}\\
+ & = & \sum_{t}\sum_{i\neq j}\left(\frac{c_{i,j}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{N_{i\leftarrow j}(t)}{N(t)}\right)^{2}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sacando las derivadas correspondientes
+\begin_inset Formula 
+\begin{eqnarray*}
+\partial_{c_{kl}}\chi^{2} & = & 2\sum_{t}\sum_{i\neq j}\left(\frac{c_{i,j}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{N_{i\leftarrow j}(t)}{N(t)}\right)\left(\frac{\delta_{i,k}\delta_{jl}}{\sum_{m}c_{im}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{c_{i,j}\sum_{m}\delta_{i,k}\delta_{lm}}{\left(\sum_{m}c_{im}\right)^{2}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ & = & 2\sum_{t}\sum_{i\neq j}\left(\frac{c_{i,j}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\left(\frac{\delta_{i,k}\delta_{jl}}{\sum_{m}c_{im}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{c_{i,j}\sum_{m}\delta_{i,k}\delta_{lm}}{\left(\sum_{m}c_{im}\right)^{2}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ &  & 2\sum_{t}\sum_{i\neq j}\left(-\frac{N_{i\leftarrow j}(t)}{N(t)}\right)\left(\frac{\delta_{i,k}\delta_{jl}}{\sum_{m}c_{im}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{c_{i,j}\sum_{m}\delta_{i,k}\delta_{lm}}{\left(\sum_{m}c_{im}\right)^{2}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ & = & \sum_{t}\left(2\sum_{i\neq j}\frac{c_{i,j}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\frac{\delta_{i,k}\delta_{jl}}{\sum_{m}c_{im}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-2\sum_{i\neq j}\frac{c_{i,j}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\frac{c_{i,j}\sum_{m}\delta_{i,k}\delta_{lm}}{\left(\sum_{m}c_{im}\right)^{2}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ &  & -\sum_{t}\left(2\sum_{i\neq j}\frac{N_{i\leftarrow j}(t)}{N(t)}\frac{\delta_{i,k}\delta_{jl}}{\sum_{m}c_{im}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-2\sum_{i\neq j}\frac{N_{i\leftarrow j}(t)}{N(t)}\frac{c_{i,j}\sum_{m}\delta_{i,k}\delta_{lm}}{\left(\sum_{m}c_{im}\right)^{2}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ & = & \sum_{t}\left(2\frac{c_{k,l}}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}\frac{1}{\sum_{m}c_{km}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}-2\sum_{j}\frac{c_{k,j}}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\frac{c_{k,j}}{\left(\sum_{m}c_{km}\right)^{2}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ &  & -\sum_{t}\left(2\frac{N_{k\leftarrow l}(t)}{N(t)}\frac{1}{\sum_{m}c_{km}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}-2\sum_{j}\frac{N_{k\leftarrow j}(t)}{N(t)}\frac{c_{k,j}}{\left(\sum_{m}c_{km}\right)^{2}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ & = & \sum_{t}\left(2\frac{c_{k,l}}{C_{k}^{2}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)^{2}\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)^{2}}-2\sum_{j}\frac{c_{k,j}^{2}}{C_{k}^{3}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)^{2}\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)^{2}}\right)\\
+ &  & -\sum_{t}\left(2\frac{N_{k\leftarrow l}(t)}{N(t)}\frac{1}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}-2\sum_{j}\frac{N_{k\leftarrow j}(t)}{N(t)}\frac{c_{k,j}}{C_{k}^{2}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ & = & 2\sum_{t}\frac{1}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}\left(\frac{c_{k,l}}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}-\frac{N_{k\leftarrow l}(t)}{N(t)}\right)\\
+ &  & -2\sum_{j,t}\frac{c_{k,j}}{C_{k}^{2}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\left(\frac{c_{k,j}}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{N_{k\leftarrow j}(t)}{N(t)}\right)\\
+ & = & 2\sum_{t}\frac{r_{kl}(t)}{c_{k,l}}\left(r_{kl}(t)-\frac{N_{k\leftarrow l}(t)}{N(t)}\right)-2\sum_{j,t}\frac{r_{kj}(t)}{C_{k}}\left(r_{kj}(t)-\frac{N_{k\leftarrow j}(t)}{N(t)}\right)\\
+ & = & 2\sum_{j,t}r_{kj}(t)\left(r_{kj}(t)-\frac{N_{k\leftarrow j}(t)}{N(t)}\right)\left(\frac{\delta_{jl}}{c_{k,j}}-\frac{1}{C_{k}}\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\partial_{\tilde{v}_{k}(\tau)}\chi^{2} & = & 2\sum_{t}\sum_{i\neq j}\left(\frac{c_{i,j}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{N_{i\leftarrow j}(t)}{N(t)}\right)\left(\frac{c_{i,j}e^{\mu-\tilde{v}_{j}(t)}\delta_{t,\tau}\delta_{j,k}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)^{2}}-\frac{c_{i,j}e^{\tilde{v}_{i}(t)-\mu}\delta_{t,\tau}\delta_{i,k}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)^{2}\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ & = & 2\sum_{t}\sum_{i\neq j}\left(\frac{c_{i,j}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\left(\frac{c_{i,j}e^{\mu-\tilde{v}_{j}(t)}\delta_{t,\tau}\delta_{j,k}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)^{2}}-\frac{c_{i,j}e^{\tilde{v}_{i}(t)-\mu}\delta_{t,\tau}\delta_{i,k}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)^{2}\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ &  & 2\sum_{t}\sum_{i\neq j}\left(-\frac{N_{i\leftarrow j}(t)}{N(t)}\right)\left(\frac{c_{i,j}e^{\mu-\tilde{v}_{j}(t)}\delta_{t,\tau}\delta_{j,k}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)^{2}}-\frac{c_{i,j}e^{\tilde{v}_{i}(t)-\mu}\delta_{t,\tau}\delta_{i,k}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)^{2}\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ & = & 2\left(\sum_{i}\frac{c_{i,k}}{C_{i}\left(1+e^{\tilde{v}_{i}(\tau)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{k}(\tau)}\right)}\frac{c_{i,k}e^{\mu-\tilde{v}_{k}(\tau)}}{C_{i}\left(1+e^{\tilde{v}_{i}(\tau)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{k}(\tau)}\right)^{2}}-\sum_{j}\frac{c_{k,j}}{C_{k}\left(1+e^{\tilde{v}_{k}(\tau)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(\tau)}\right)}\frac{c_{i,j}e^{\tilde{v}_{i}(t)-\mu}\delta_{t,\tau}\delta_{i,k}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)^{2}\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ &  & -2\left(\sum_{i}\frac{N_{i\leftarrow k}(\tau)}{N(\tau)}\frac{c_{i,k}e^{\mu-\tilde{v}_{k}(\tau)}}{C_{i}\left(1+e^{\tilde{v}_{i}(\tau)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{k}(\tau)}\right)^{2}}-\sum_{j}\frac{N_{k\leftarrow j}(\tau)}{N(\tau)}\frac{c_{k,j}e^{\tilde{v}_{k}(\tau)-\mu}}{C_{k}\left(1+e^{\tilde{v}_{k}(\tau)-\mu}\right)^{2}\left(1+e^{\mu-\tilde{v}_{j}(\tau)}\right)}\right)\\
+ & = & 2\sum_{i}\frac{c_{i,k}e^{\mu-\tilde{v}_{k}(\tau)}}{C_{i}\left(1+e^{\tilde{v}_{i}(\tau)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{k}(\tau)}\right)^{2}}\left(\frac{c_{i,k}}{C_{i}\left(1+e^{\tilde{v}_{i}(\tau)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{k}(\tau)}\right)}-\frac{N_{i\leftarrow k}(\tau)}{N(\tau)}\right)\\
+ &  & -2\sum_{j}\frac{c_{k,j}e^{\tilde{v}_{k}(\tau)-\mu}}{C_{k}\left(1+e^{\tilde{v}_{k}(\tau)-\mu}\right)^{2}\left(1+e^{\mu-\tilde{v}_{j}(\tau)}\right)}\left(\frac{c_{k,j}}{C_{k}\left(1+e^{\tilde{v}_{k}(\tau)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(\tau)}\right)}-\frac{N_{k\leftarrow j}(\tau)}{N(\tau)}\right)\\
+ & = & 2\sum_{i}\frac{r_{ik}(t)e^{\mu-\tilde{v}_{k}(\tau)}}{\left(1+e^{\mu-\tilde{v}_{k}(\tau)}\right)}\left(r_{ik}(t)-\frac{N_{i\leftarrow k}(\tau)}{N(\tau)}\right)-2\sum_{j}\frac{r_{kj}(t)e^{\tilde{v}_{k}(\tau)-\mu}}{\left(1+e^{\tilde{v}_{k}(\tau)-\mu}\right)}\left(r_{kj}(t)-\frac{N_{k\leftarrow j}(\tau)}{N(\tau)}\right)\\
+ & = & 2\sum_{ij}r_{ij}(t)\left(r_{ij}(t)-\frac{N_{i\leftarrow j}(\tau)}{N(\tau)}\right)\left(\frac{e^{\mu-\tilde{v}_{j}(\tau)}\delta_{jk}}{\left(1+e^{\mu-\tilde{v}_{j}(\tau)}\right)}-\frac{e^{\tilde{v}_{i}(\tau)-\mu}\delta_{ik}}{\left(1+e^{\tilde{v}_{i}(\tau)-\mu}\right)}\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Si normalizamos 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+r_{ij}=\frac{c_{i,j}}{C_{j}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\ \,\forall\ i\neq j,\ \ C_{j}=\sum_{m}\frac{c_{m,j}}{\left(1+e^{\tilde{v}_{m}(t)-\mu}\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+r_{ii} & = & 1-\sum_{j}\frac{c_{ji}}{C_{i}\left(1+e^{\tilde{v}_{j}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{i}(t)}\right)}\\
+ & = & 1-\frac{1}{\left(1+e^{\mu-\tilde{v}_{i}(t)}\right)}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Como comentario, tendriamos entonces que 
+\begin_inset Formula 
+\[
+\frac{1}{\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+sería la probabilidad de que no se haga una transición desde i, lo cual
+ es conveniente que se relacione con la preferencia del lugar.
+\end_layout
+
+\begin_layout Standard
+de manera que el sistema que tenemos que 
+\begin_inset Formula 
+\[
+r_{ii}=1-\frac{1}{\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\log\left(\frac{1}{1-r_{ii}(t)}-1\right)+\mu=\tilde{v}_{i}(t)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\log\left(\frac{r_{ii}(t)}{1-r_{ii}(t)}\right)+\mu=\tilde{v}_{i}(t)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ya con esto es facil estimar la matriz de conectividad al minimizar teniendo
+ en cuenta la siguiente derivada:
+\begin_inset Formula 
+\begin{eqnarray*}
+\partial_{c_{kl}}r_{ij}(t) & = & \partial_{c_{kl}}\frac{c_{i,j}}{\sum_{m}\frac{c_{i,m}}{\left(1+e^{\mu-\tilde{v}_{m}(t)}\right)}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\\
+ & = & \frac{\delta_{i,k}\delta_{jl}}{\sum_{m}\frac{c_{i,m}}{\left(1+e^{\mu-\tilde{v}_{m}(t)}\right)}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{c_{i,j}\sum_{m}\frac{\delta_{i,k}\delta_{lm}}{\left(1+e^{\mu-\tilde{v}_{m}(t)}\right)}}{\left(\sum_{m}\frac{c_{i,m}}{\left(1+e^{\mu-\tilde{v}_{m}(t)}\right)}\right)^{2}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\\
+ & = & \frac{\delta_{i,k}\delta_{jl}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{c_{i,j}\sum_{m}\frac{\delta_{i,k}\delta_{lm}}{\left(1+e^{\mu-\tilde{v}_{m}(t)}\right)}}{C_{i}^{2}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\\
+ & = & \frac{1}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}-\frac{c_{k,j}}{C_{k}^{2}\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\\
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Que teniendo en cuenta el 
+\begin_inset Formula 
+\[
+\chi^{2}=\sum_{i,j,t}\left(r_{ij}-\frac{N_{i\leftarrow j}(t)}{N(t)}\right)^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Tenemos que al tomar la derivada con respecto a los parametros de conectividad
+ tenemos:
+\begin_inset Formula 
+\begin{eqnarray*}
+\partial_{c_{kl}}\chi^{2} & = & 2\sum_{t}\sum_{i\neq j}\left(\frac{c_{i,j}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{N_{i\leftarrow j}(t)}{N(t)}\right)\left(\frac{\delta_{i,k}\delta_{jl}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{c_{i,j}\sum_{m}\frac{\delta_{i,k}\delta_{lm}}{\left(1+e^{\mu-\tilde{v}_{m}(t)}\right)}}{C_{i}^{2}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ & = & 2\sum_{t}\sum_{i\neq j}\left(\frac{c_{i,j}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\left(\frac{\delta_{i,k}\delta_{jl}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{c_{i,j}\sum_{m}\frac{\delta_{i,k}\delta_{lm}}{\left(1+e^{\mu-\tilde{v}_{m}(t)}\right)}}{C_{i}^{2}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ &  & 2\sum_{t}\sum_{i\neq j}\left(-\frac{N_{i\leftarrow j}(t)}{N(t)}\right)\left(\frac{\delta_{i,k}\delta_{jl}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{c_{i,j}\sum_{m}\frac{\delta_{i,k}\delta_{lm}}{\left(1+e^{\mu-\tilde{v}_{m}(t)}\right)}}{C_{i}^{2}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ & = & \sum_{t}\left(2\sum_{i\neq j}\frac{c_{i,j}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\frac{\delta_{i,k}\delta_{jl}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-2\sum_{i\neq j}\frac{c_{i,j}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\frac{c_{i,j}\sum_{m}\frac{\delta_{i,k}\delta_{lm}}{\left(1+e^{\mu-\tilde{v}_{m}(t)}\right)}}{C_{i}^{2}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ &  & -\sum_{t}\left(2\sum_{i\neq j}\frac{N_{i\leftarrow j}(t)}{N(t)}\frac{\delta_{i,k}\delta_{jl}}{C_{i}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-2\sum_{i\neq j}\frac{N_{i\leftarrow j}(t)}{N(t)}\frac{c_{i,j}\sum_{m}\frac{\delta_{i,k}\delta_{lm}}{\left(1+e^{\mu-\tilde{v}_{m}(t)}\right)}}{C_{i}^{2}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ & = & \sum_{t}\left(2\frac{c_{k,l}}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}\frac{1}{\sum_{m}c_{km}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}-2\sum_{j}\frac{c_{k,j}}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\frac{c_{k,j}}{C_{k}^{2}\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ &  & -\sum_{t}\left(2\frac{N_{k\leftarrow l}(t)}{N(t)}\frac{1}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}-2\sum_{j}\frac{N_{k\leftarrow j}(t)}{N(t)}\frac{c_{k,j}}{C_{k}^{2}\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\right)\\
+ & = & \sum_{t}\left(2\frac{c_{k,l}}{C_{k}^{2}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)^{2}\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)^{2}}-2\sum_{j}\frac{c_{k,j}^{2}}{C_{k}^{3}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)^{2}\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)^{2}\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}\right)\\
+ &  & -\sum_{t}\left(2\frac{N_{k\leftarrow l}(t)}{N(t)}\frac{1}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}-2\sum_{j}\frac{N_{k\leftarrow j}(t)}{N(t)}\frac{c_{k,j}}{C_{k}^{2}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}\right)\\
+ & = & 2\sum_{t}\frac{1}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}\left(\frac{c_{k,l}}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}-\frac{N_{k\leftarrow l}(t)}{N(t)}\right)\\
+ &  & -2\sum_{j,t}\frac{c_{k,j}}{C_{k}^{2}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}\left(\frac{c_{k,j}}{C_{k}\left(1+e^{\tilde{v}_{k}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}-\frac{N_{k\leftarrow j}(t)}{N(t)}\right)\\
+ & = & 2\sum_{t}\frac{r_{kl}(t)}{c_{k,l}}\left(r_{kl}(t)-\frac{N_{k\leftarrow l}(t)}{N(t)}\right)-2\sum_{j,t}\frac{r_{kj}(t)}{C_{k}\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}\left(r_{kj}(t)-\frac{N_{k\leftarrow j}(t)}{N(t)}\right)\\
+ & = & 2\sum_{j,t}r_{kj}(t)\left(r_{kj}(t)-\frac{N_{k\leftarrow j}(t)}{N(t)}\right)\left(\frac{\delta_{jl}}{c_{k,j}}-\frac{1}{C_{k}\left(1+e^{\mu-\tilde{v}_{l}(t)}\right)}\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\frac{c_{i,j}}{C_{j}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}}{\frac{c_{j,i}}{C_{i}\left(1+e^{\tilde{v}_{j}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{i}(t)}\right)}} & = & \frac{C_{i}\left(1+e^{\tilde{v}_{j}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{i}(t)}\right)}{C_{j}\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)}\\
+ & = & \frac{\left(1+e^{\tilde{v}_{j}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{i}(t)}\right)\sum_{m}\frac{c_{m,i}}{\left(1+e^{\tilde{v}_{m}(t)-\mu}\right)}}{\left(1+e^{\tilde{v}_{i}(t)-\mu}\right)\left(1+e^{\mu-\tilde{v}_{j}(t)}\right)\sum_{m}\frac{c_{m,j}}{\left(1+e^{\tilde{v}_{m}(t)-\mu}\right)}}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
